@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>I-TEACH - ICS TEaching and Course scHeme</title>
-    <link href="js/jquery2.min.js" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery2.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,7 +30,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
 </head>
 
 <body>

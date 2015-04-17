@@ -44,6 +44,8 @@ class ViewController extends Controller {
 		else{
 			$sections['sections'] = section::join('courses', 'sections.courseNum', '=', 'courses.courseNum')
 											->join('instructors', 'sections.employeeId', '=', 'instructors.employeeId')
+											->orderBy('courses.courseNum','ASC')
+											->orderBy('sections.sectionNum','ASC')
 											->get();
 			$courses['courses'] = course::all();
 			return view('iteach.dashboard.viewCourse', $sections, $courses);
@@ -60,6 +62,7 @@ class ViewController extends Controller {
 			
 		else{
 			$allInstructors['allInstructors'] = instructor::orderBy('lname','ASC')
+											->where('instructors.status','active')
 											->get();
 			$instructors['instructors'] = instructor::join('sections', 'instructors.employeeId', '=', 'sections.employeeId')
 								      ->join('courses', 'sections.courseNum', '=', 'courses.courseNum')
