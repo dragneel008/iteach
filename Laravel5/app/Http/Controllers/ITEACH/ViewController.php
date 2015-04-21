@@ -85,9 +85,9 @@ class ViewController extends Controller {
 			
 		else{
 			$rooms['rooms'] = room::all();
-			$sections['sections'] = section::all();
-			$instructors['instructors'] = instructor::all();
-			return view('iteach.dashboard.viewRoom', $rooms, $sections, $instructors);
+			$sections['sections'] = section::orderBy('startTime')
+											->get();
+			return view('iteach.dashboard.viewRoom', $rooms, $sections);
 		}
 	}
 }
