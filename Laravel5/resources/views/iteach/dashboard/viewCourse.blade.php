@@ -35,7 +35,7 @@
     </div>
     <?php $sect=null; $counter=0;?>
     @for($i = 0; $i<count($sections); $i++)
-    <div class="divtab{{$counter}} box" style="display:none" hidden>
+    <div class="divtab{{$counter}} box tab-pane fade in" style="display:none" hidden>
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead>

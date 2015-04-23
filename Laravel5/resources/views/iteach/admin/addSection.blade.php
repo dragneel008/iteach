@@ -15,43 +15,20 @@
                             <div class="form-group col-lg-12">
                                 <label>Select Course:</label>
                                 <select class="form-control">
+                            
+                                    <option value="null" selected></option>
+                                    @if(count($courses))
+                                        @foreach($courses as $q)
+                                            <option value="{{$q->courseNum}}"> {{$q->courseNum}} &nbsp;&nbsp; - &nbsp;&nbsp; {{$q->courseTitle}}</option>    
+                                        @endforeach
+                                    @else
+                                        <option>NO COURSES AT THE MOMENT</option>    
+                                    @endif
 
-                                    <!--  
-                                        TODO:
-                                            Make this dynamic based on the courses stored in the database.
-                                            Also, include the course title in the list.
-                                            Include a "value" attribute for server-side processing.
-                                    -->
 
-                                    <option>CMSC 2</option>
-                                    <option>CMSC 11</option>
-                                    <option>CMSC 21</option>
-                                    <option>CMSC 22</option>
-                                    <option>CMSC 56</option>
-                                    <option>CMSC 57</option>
-                                    <option>CMSC 100</option>
-                                    <option>CMSC 123</option>
-                                    <option>CMSC 124</option>
-                                    <option>CMSC 125</option>
-                                    <option>CMSC 127</option>
-                                    <option>CMSC 128</option>
-                                    <option>CMSC 129</option>
-                                    <option>CMSC 130</option>
-                                    <option>CMSC 131</option>
-                                    <option>CMSC 132</option>
-                                    <option>CMSC 137</option>
-                                    <option>CMSC 141</option>
-                                    <option>CMSC 142</option>
-                                    <option>CMSC 150</option>
-                                    <option>CMSC 161</option>
-                                    <option>CMSC 165</option>
-                                    <option>CMSC 170</option>
-                                    <option>CMSC 190</option>
-                                    <option>CMSC 198</option>
-                                    <option>CMSC 199</option>
                                 </select>                                
                             </div>
-                            
+                                
                             <h3>Lecture</h3>
                             <div class="form-group col-lg-2">
                                 <label>Section: </label>
@@ -114,85 +91,79 @@
                                 <label>Instructor:</label>
                                 <select class="form-control">
 
-                                    <!--  
-                                        TODO:
-                                            Make this dynamic based on the instructors stored in the database.
-                                            Include a "value" attribute for server-side processing.
-                                    -->
-
                                     <option value="null" selected></option>
-
-                                    <!-- Senior Faculty Members -->
-                                    <optgroup label="Senior Faculty">
-                                        <option></option>
+                                    <optgroup>
+                                    <!-- Faculty Members -->
+                                        @foreach($instructors as $q)
+                                        <option value="{{$q->employeeId}}"> {{$q->lname}}, {{$q->fname}}</option>    
+                                        @endforeach
                                     </optgroup>
 
-                                    <!-- Junior Faculty Members -->
-                                    <optgroup label="Junior Faculty">
-                                        <option>RNCRecario</option>
-                                        <option>MAADClari&ntilde;o</option>
-                                        <option>MMMSandoval</option>
-                                    </optgroup>
                                 </select>                                
                             </div>
 
                             <div class="form-group col-lg-4">
                                 <label>Room:</label>
-                                <select class="form-control">
-                                    <!--  
-                                        TODO:
-                                            Make this dynamic based on the lecture halls stored in the database.
-                                            Include a "value" attribute for server-side processing.
-                                    -->
+                                <select name="room" class="form-control">                                   
 
                                     <option value="null" selected></option>
-                                    <option>ICS Mega Lecture Hall</option>
-                                    <option>ICS Lecture Hall 3</option>
-                                    <option>ICS Lecture Hall 4</option>
+
+                                    @foreach($rooms as $q)
+                                        <option value="{{$q->roomNum}}"> {{$q->roomNum}} - {{$q->capacity}}</option>
+                                    @endforeach
+
                                 </select>                                
                             </div>
                             
                             <h3>Laboratory</h3>
-                            <div class="form-group col-lg-2">
-                                <label>Sections:</label>
-                                <input class="form-control" id="1L" type="text" placeholder="1L" disabled> 
+                            <div>
+                                <div class="form-group col-lg-2">
+                                    <label>Sections:</label>                                    
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label>Day:</label>                              
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <label>Timeslot:</label>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Instructor:</label>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <label>Room:</label>              
+                                </div>                  
                             </div>
-                            <div class="form-group col-lg-2">
-                                <label>Day:</label>
-                                <input class="form-control" id="Mon" type="text" placeholder="Mon" disabled>                                
-                            </div>
-                            <div class="form-group col-lg-2">
-                                <label>Timeslot:</label>
-                               <input class="form-control" id="14pm" type="text" placeholder="1 - 4pm" disabled>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <label>Instructor:</label>
-                                <select class="form-control">
-                                    <!--  
-                                        TODO:
-                                            Make this dynamic based on the instructors stored in the database.
-                                            Include a "value" attribute for server-side processing.
-                                    -->
 
-                                    <option>Recario</option>
-                                    <option>Clarino</option>
-                                    <option>Sandoval</option>
-                                </select>     
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <label>Room:</label>
-                                <select class="form-control">
-                                    <!--  
-                                        TODO:
-                                            Make this dynamic based on the lecture halls stored in the database.
-                                            Include a "value" attribute for server-side processing.
-                                    -->
+                            <div id="lab">
+                                <div class="form-group col-lg-2">
+                                    <input class="form-control" id="1L" type="text" placeholder="1L" disabled> 
+                                </div>
+                                <div class="form-group col-lg-2">
+                                    <input class="form-control" id="Mon" type="text" placeholder="Mon" disabled>                                
+                                </div>
+                                <div class="form-group col-lg-2">
+                                   <input class="form-control" id="14pm" type="text" placeholder="1 - 4pm" disabled>
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <select class="form-control">                                       
+                                        <option value="null" selected></option>
+                                        @foreach($instructors as $q)
+                                            <option value="{{$q->employeeId}}"> {{$q->lname}}, {{$q->fname}}</option>    
+                                        @endforeach
 
-                                    <option>ICS MH</option>
-                                    <option>ICS LH3</option>
-                                    <option>ICS LH4</option>
-                                </select>                                
-                            </div>                  
+                                    </select>     
+                                </div>
+                                <div class="form-group col-lg-3">
+                                    <select class="form-control">                                        
+                                        <option value="null" selected></option>
+                                        @foreach($rooms as $q)
+                                            <option value="{{$q->roomNum}}"> {{$q->roomNum}} - {{$q->capacity}}</option>    
+                                        @endforeach
+                                    </select>                                
+                                </div>                  
+                            </div>
+
+
 
                              <div class="form-group col-lg-12">
                                 <button type="button" class="btn btn-default" id="addLabSection">Add Lab Section </button>
@@ -203,6 +174,7 @@
                                 <button type="submit" class="btn btn-default">Submit </button>
                                 <button type="reset" class="btn btn-default">Reset </button>
                             </div>
+                            
 
                         </form>
                     </div>
@@ -214,15 +186,21 @@
 <script>
     $(document).ready(function(){
         var numberOfLabSectionsToAdd = 0;
+        var cln = $('#lab').html();
 
         $('#addLabSection').click(function() {
             numberOfLabSectionsToAdd++;
             /*
                 TODO:
                     If the user clicks the button another row should be added
+                    Error: the whole div duplicates 
             */
 
-            if(numberOfLabSectionsToAdd > 0) $('#removeLabSection').removeAttr('disabled');
+             if(numberOfLabSectionsToAdd > 0){
+                $('#removeLabSection').removeAttr('disabled');
+            }
+
+            $("#lab").append(cln);
         });
 
         $('#removeLabSection').click(function() {
@@ -230,11 +208,14 @@
             /*
                 TODO:
                     If the user clicks the button a row should be removed.
+                    Error: nothing is removed but still it mirrors the add counter
             */
 
             if(numberOfLabSectionsToAdd <= 0) {
                 numberOfLabSectionsToAdd = 0;
                 $('#removeLabSection').attr('disabled', 'true');
+                //$(this).parent().remove();
+                $("#lab").remove(cln);
             }
 
             console.log(numberOfLabSectionsToAdd);

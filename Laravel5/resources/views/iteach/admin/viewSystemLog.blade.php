@@ -24,11 +24,19 @@
                 <th width="30%" class="text-center">Timestamp</th>
 
                 <!-- Looping of logs should be somewhat like this. -->
-                @foreach ($sampleLog as $log)
+                @foreach ($addCourse as $course)
                     <tr class="text-center">
-                        <td> {{ $log[0] }} </td>
-                        <td> {{ $log[1] }} </td> 
-                        <td> {{ $log[2] }} </td>
+                        <td> {{ $course->logId }} </td>
+                        <td> {{ $course->adminNum }} {{ 'add' }} {{ $course->courseNum }}</td> 
+                        <td> {{ $course->created_at }} </td>
+                    </tr>
+                @endforeach
+
+                @foreach ($addDissolveSection as $course)
+                    <tr class="text-center">
+                        <td> {{$course->logId}} </td>
+                        <td> {{ $course->adminNum }} {{ $course->action }} {{ $course->courseNum }} {{ $course->sectionNum }}</td> 
+                        <td> {{ $course->created_at }} </td>
                     </tr>
                 @endforeach
             </table>

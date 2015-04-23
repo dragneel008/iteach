@@ -4,6 +4,7 @@
     <!--
         TODO
             Delete Section Stuff
+            What section stuff?
      -->
 
 	 <div class="row">
@@ -21,39 +22,9 @@
 	            <div class="col-lg-4">
 					<select class="form-control">
 					    <option value="null" selected></option>
-
-					    <!-- 
-							TODO
-								Make this part dynamic based on the current courses stored in the database/
-								Add values to options for server-side processing.
-					     -->
-
-					    <option>CMSC 2</option>
-					    <option>CMSC 11</option>
-					    <option>CMSC 21</option>
-					    <option>CMSC 22</option>
-					    <option>CMSC 56</option>
-					    <option>CMSC 57</option>
-					    <option>CMSC 100</option>
-					    <option>CMSC 123</option>
-					    <option>CMSC 124</option>
-					    <option>CMSC 125</option>
-					    <option>CMSC 127</option>
-					    <option>CMSC 128</option>
-					    <option>CMSC 129</option>
-					    <option>CMSC 130</option>
-					    <option>CMSC 131</option>
-					    <option>CMSC 132</option>
-					    <option>CMSC 137</option>
-					    <option>CMSC 141</option>
-					    <option>CMSC 142</option>
-					    <option>CMSC 150</option>
-					    <option>CMSC 161</option>
-					    <option>CMSC 165</option>
-					    <option>CMSC 170</option>
-					    <option>CMSC 190</option>
-					    <option>CMSC 198</option>
-					    <option>CMSC 199</option>
+					   	@foreach($dissolve as $diss)
+                        	<option value="{{$diss->courseNum}}"> {{$diss->courseNum}} </option>    
+						@endforeach
 					</select>
 	            </div>
 	        </div>
@@ -67,14 +38,15 @@
 					    <!-- 
 							TODO
 								Make this part dynamic based on the sections mapped to the course number.
+								Error: Only the last appended course has its sections found.
 					     -->
+						@foreach($section as $q)
+							@if($q->courseNum == $diss->courseNum)
+                        		<option value="{{$q->sectionNum}}"> {{$q->sectionNum}}</option>
 
-					    <option>CD-1L</option>
-					    <option>CD-2L</option>
-					    <option>CD-3L</option>
-					    <option>CD-4L</option>
-					    <option>CD-5L</option>
-					    <option>CD-6L</option>
+                        	@endif
+						@endforeach
+					   
 					</select>
 	            </div>
 	        </div>

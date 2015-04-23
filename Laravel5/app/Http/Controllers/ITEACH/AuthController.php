@@ -2,13 +2,15 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ITEACH\RequestController;
 use DB;
 use Illuminate\Http\Request;
 use Auth;
 use Input;
 use Session;
 use App\User;
-
+use App\Instructor;
+	
 class AuthController extends Controller {
 
 	//Log in page controller
@@ -32,16 +34,39 @@ class AuthController extends Controller {
 
 		$username = Input::get('username');
 		$password = Input::get('password');
-		if(Auth::attempt(['username' => $username, 'password' => $password])){
 
-			//If authentication is successful, redirect to home
-			return redirect()->intended('home');
-
-		}
+		$tuple = User::where('username', $username)
+			->get();
 
 		//provides error data and places into temporary session
 		$errors = [];
-		$errors += ['auth' => 'Username/Password match is invalid'];
+		if(empty($tuple[0]))
+			$errors += ['user' => 'Username does not exist!'];
+		
+		else{
+
+			$tuple = Instructor::where('employeeId', $tuple[0]['employeeId'])
+				->get();
+
+			if(!$tuple[0]['registered'])
+				$errors += ['reg' => 'User is not yet registered by an admin!'];
+			else{
+				if(Auth::attempt(['username' => $username, 'password' => $password])){
+
+					//If authentication is successful, redirect to home
+					$inst = Instructor::join('users', 'users.employeeId', '=','instructors.employeeId')
+							->where('username', '=', Auth::User()->username)
+							->get();
+					Session::forget('userInst');
+					Session::put('userInst', $inst[0]);
+
+					return redirect()->intended('home');
+
+				}
+				else
+					$errors += ['auth' => 'Username/Password match is invalid'];
+			}
+		}
 		$old = ['username' => $username];
 		Session::put('errors', $errors);	//place into section
 		Session::put('old', $old);
@@ -65,21 +90,26 @@ class AuthController extends Controller {
 		
 		$users = User::where('username', '=', $username)->get();
 		$emp = User::where('employeeId', '=', $employeeID)->get();
-
+		$checkId = Instructor::where('employeeId', $employeeID)
+			->get();
 
 		if(count($users) > 0){
 			$errors += ['user' => 'Username already exists!'];
 		}
+		if(empty($checkId[0])){
+			$errors += ['emp' => 'Employee id does not exist!'];
+		}
 		if(count($emp) > 0){
-			$errors += ['emp' => 'Employee id already exists!'];
+			$errors += ['emp' => 'Employee id already in use!'];
 		}
 		if($password1 != $password2){
 			$errors += ['pass' => 'Passwords do not match'];
 		}
 		
 		if(count($errors) == 0){
-			User::create(['type'=>'faculty','username'=>$username, 'employeeId' => $employeeID, 'password'=>bcrypt($password1)]);
-			return redirect()->intended('index');
+			User::create(['type'=>'faculty', 'username'=>$username, 'employeeId' => $employeeID, 'password'=>bcrypt($password1)]);
+			RequestController::createRegistryRequest($employeeID);
+			return redirect('index');
 		}
 
 		//provides error data and places into temporary session
@@ -87,7 +117,7 @@ class AuthController extends Controller {
 		Session::put('errors', $errors);	//place into section
 		Session::put('old', $old);
 
-		return redirect()->intended('register');	//This is done to hide submitted data from the url
+		return redirect('register');	//This is done to hide submitted data from the url
 	
 	}
 	
@@ -105,8 +135,7 @@ class AuthController extends Controller {
 		$data = [];
 		$data += ['type' => 'su'];
 		$errors = Session::get('errors', []);
-//		$old = ['firstName' => '', 'lastName' => '', 'username' => ''];
-		$old = Session::get('old', [ 'username' => '']);
+		$old = Session::get('old', ['username' => '']);
 		Session::forget('errors');
 		Session::forget('old', $old);
 		

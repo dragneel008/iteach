@@ -9,12 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>I-TEACH | ICS TEaching and Course scHeme</title>
+    <title>I-TEACH</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <link href="css/gallery.css" rel="stylesheet">
     <link href="css/sb-admin.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
@@ -68,60 +69,57 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                        @if(count($Nrequests))
+                            @foreach($Nrequests as $r)
+                            <li class="message-preview">
+                                <a href= {{ $r['request']->link }}>
+                                    <div class="media">
+                                        <span class="pull-left">
+                                            @if($r['request']->response == 'yes')
+                                                <i class="fa fa-check-circle"></i>
+                                            @elseif($r['request']->response == 'no')
+                                                <i class="fa fa-times-circle"></i>
+                                            @elseif($r['request']->response == 'none')
+                                                <i class="fa fa-exclamation-circle"></i>
+                                            @elseif($r['request']->response == 'happy')
+                                                <i class="fa fa-smile-o"></i>
+                                            @elseif($r['request']->response == 'sad')
+                                                <i class="fa fa-frown-o"></i>
+                                            @elseif($r['request']->response == 'ban')
+                                                <i class="fa fa-ban"></i>
+                                            @endif
+                                        </span>
+                                        <div class="media-body">
+                                        
+                                            <h5 class="media-heading"><strong>{{ $r['heading'] }}</strong>
+                                            </h5>
+                                            <p class="small text-muted"><i class="fa fa-clock-o"></i>{{date(" F d, Y h:i a", strtotime($r['request']->created_at))}}</p>
+                                            <p> <?php echo $r['request']->message ?> </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                </a>
+                            </li>
+                            @endforeach
+                        @else
+                            <li class="message-preview">
+                                <a href= "#">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h5 class="media-heading"> <strong>No Requests At The Moment</strong> </h5>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
+                                </a>
+                            </li>
+                        @endif
                         <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
+                            <a href="#">Read Old Messages</a>
                         </li>
                     </ul>
                 </li>
                 
                 
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-user"></i> {{ Auth::user()->fname }} {{ Auth::user()->lname }} <i class="fa fa-fw fa-caret-down"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-user"></i> {{ Session::get('userInst')['fname'] }} {{ Session::get('userInst')['lname'] }} <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="logout"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
@@ -147,10 +145,10 @@
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#view"><i class="fa fa-fw fa-list"></i>  View  <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="view" class="collapse">
-                            <li> <a href="adminViewAll"><i class="fa fa-fw"></i> All </a> </li>
-                            <li> <a href="adminViewCourse"><i class="fa fa-fw"></i> Course </a> </li>
-                            <li> <a href="adminViewRoom"><i class="fa fa-fw"></i> Room </a> </li>
-                            <li> <a href="adminViewInstructor"><i class="fa fa-fw"></i> Instructor </a> </li>
+                            <li> <a href="viewAll"><i class="fa fa-fw"></i> All </a> </li>
+                            <li> <a href="viewCourse"><i class="fa fa-fw"></i> Course </a> </li>
+                            <li> <a href="viewRoom"><i class="fa fa-fw"></i> Room </a> </li>
+                            <li> <a href="viewInstructor"><i class="fa fa-fw"></i> Instructor </a> </li>
                         </ul>
                     </li>
 
@@ -159,7 +157,7 @@
                         <ul id="pendingRequests" class="collapse">
                             <li> <a href="#"><i class="fa fa-fw"></i> All </a></li>
                             <li> <a href="#"><i class="fa fa-fw"></i> Account Request </a></li>
-                            <li> <a href="#"><i class="fa fa-fw"></i> Swap Request </a></li>
+                            <li> <a href="viewSwapRequests"><i class="fa fa-fw"></i> Swap Requests </a></li>
                         </ul>
                     </li>
 
@@ -188,7 +186,8 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                @yield('content')       
+                @yield('content')
+
             </div>
             <!-- /.container-fluid -->
 

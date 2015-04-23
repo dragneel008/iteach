@@ -10,8 +10,8 @@
                 </div>
                 <div class="bs-example col-lg-11">
                     <div class="panel-group" id="accordion">
-
-                    @for ($i = 0;$i<count($rooms); $i++)
+                    <?php $sectionCounter = 0; ?>
+                    @for ($i = 0;$i<count($rooms)-1; $i++)
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -20,18 +20,17 @@
                             </div>
                             <div id="collapse{{$i}}" class="panel-collapse collapse">
                                 <div class="panel-body">
-									<table class="tg">
+                                	<!-- 
+                                	-------------------------------------------------------
+                                		
+                                		LOAD EMPTY TABLE 
+
+                                	-------------------------------------------------------
+                                	-->
+									<table id="tg{{$i}}" class="tg">
 									  <tr>
 									    <th class="tg-vx3v" colspan="6">{{$rooms[$i]->roomNum}}</th>
 									  </tr>
-
-									  	<?php $cnt=0; $m=12; $tu=12; $w=12; $th=12; $f=12; ?>
-										@for($a=0;$a!=count($sections);$a++)
-											@if($sections[$a]->roomNum == $rooms[$i]->roomNum)
-												<?php $arr[$cnt] = $a; $cnt++; ?>
-											@endif
-										@endfor
-
 									  <tr>
 									    <td class="tg-7l82">Time / Day</td>
 									    <td class="tg-7l82">Monday</td>
@@ -40,667 +39,90 @@
 									    <td class="tg-7l82">Thursday</td>
 									    <td class="tg-7l82">Friday</td>
 									  </tr>
-									  <tr>
-									    <td class="tg-jecd">7:00 - 8:00</td>
-										<?php $st = "7:00"; $ed = "8:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">8:00 - 9:00</td>
-										<?php $st = "8:00"; $ed = "9:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">9:00 - 10:00</td>
-										<?php $st = "9:00"; $ed = "10:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">10:00 - 11:00</td>
-										<?php $st = "10:00"; $ed = "11:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">11:00 - 12:00</td>
-										<?php $st = "11:00"; $ed = "12:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">12:00 - 1:00</td>
-										<?php $st = "12:00"; $ed = "1:00";  ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">1:00 - 2:00</td>
-										<?php $st = "1:00"; $ed = "2:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">2:00 - 3:00</td>
-										<?php $st = "2:00"; $ed = "3:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">3:00 - 4:00</td>
-										<?php $st = "3:00"; $ed = "4:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">4:00 - 5:00</td>
-										<?php $st = "4:00"; $ed = "5:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">5:00 - 6:00</td>
-										<?php $st = "5:00"; $ed = "6:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
-									  <tr>
-									    <td class="tg-jecd">6:00 - 7:00</td>
-										<?php $st = "6:00"; $ed = "7:00"; ?>
-										@for($a=0;$a!=$cnt;$a++)
-											@if($sections[$arr[$a]]->startTime == $st)
-												<?php
-													$sectString = "{{$sections[$arr[$a]]->day}}";
-													if($sectString != "TBA"){
-														$tkn = substr($sectString, 2, 1);
-														if ($tkn!="H"){
-															$tkn = substr($sectString, 1, 1);
-														}
-														$tkn2 = substr($sectString, -2, 1);
-
-														if ($sections[$arr[$a]]->startTime != "TBA" || $sections[$arr[$a]]->endTime != "TBA"){
-															$start = $sections[$arr[$a]]->startTime - ":00";
-															$end = $sections[$arr[$a]]->endTime - ":00";
-															if ($end-$start == 1 || $end-$start == -11){
-																$row = 1;
-															}elseif ($end-$start == 2 || $end-$start == -10){
-																$row = 2;
-															}else{
-																$row = 3;
-															}
-														}
-													}
-												?>
-												@if($tkn == $tkn2)
-													@if($tkn=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@else
-													@if($tkn=="M" || $tkn2=="M")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="T" || $tkn2=="T")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="W" || $tkn2=="W")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@elseif($tkn=="H" || $tkn2=="H")
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@else
-														<td class="tg-031e" rowspan={{$row}}> {{$sections[$arr[$a]]->courseNum}} - {{$sections[$arr[$a]]->sectionNum}} </td>
-													@endif
-												@endif
-											@endif
-										@endfor
-									  </tr>
+									  <!-- Schedule from -->
+									  @for($j=7; $j!=12; $j++)
+										<tr>
+									    	<td class="tg-jecd">{{$j}}:00 - {{$j+1}}:00</td>
+									    	<td class="tg-031e Mt{{$j}}"></td>
+									    	<td class="tg-031e Tt{{$j}}"></td>
+									    	<td class="tg-031e Wt{{$j}}"></td>
+									    	<td class="tg-031e THt{{$j}}"></td>
+									    	<td class="tg-031e Ft{{$j}}"></td>
+										</tr>
+									  @endfor
+									  	<tr>
+									    	<td class="tg-jecd">12:00 - 1:00</td>
+									    	<td class="tg-031e Mt12"></td>
+									    	<td class="tg-031e Tt12"></td>
+									    	<td class="tg-031e Wt12"></td>
+									    	<td class="tg-031e THt12"></td>
+									    	<td class="tg-031e Ft12"></td>
+										</tr>
+									  @for($j=1; $j!=7; $j++)
+										<tr>
+									    	<td class="tg-jecd">{{$j}}:00 - {{$j+1}}:00</td>
+											<td class="tg-031e Mt{{$j}}"></td>
+									    	<td class="tg-031e Tt{{$j}}"></td>
+									    	<td class="tg-031e Wt{{$j}}"></td>
+									    	<td class="tg-031e THt{{$j}}"></td>
+									    	<td class="tg-031e Ft{{$j}}"></td>
+										</tr>
+									  @endfor
 									</table>
+									<!-- 
+                                	-------------------------------------------------------
+                                		
+                                		Add slots to table
+
+                                	-------------------------------------------------------
+                                	-->
+									<script type="text/JavaScript">
+									@while($sectionCounter < count($sections) && $rooms[$i]->roomNum == $sections[$sectionCounter]->roomNum)
+									 	$(function () {
+									 		<?php
+									 			$courseNumString = $sections[$sectionCounter]->courseNum;
+									 			$sectNumString = $sections[$sectionCounter]->sectionNum;
+									 			$dayString = $sections[$sectionCounter]->day;
+												$startString = str_replace(":00","",$sections[$sectionCounter]->startTime);
+												$endString = str_replace(":00","",$sections[$sectionCounter]->endTime);
+
+												// Convert to military time
+												if($startString < 7 && $startString > 0){
+													$startString1 = $startString + 12;
+												}
+												if($endString < 8 && $endString > 0){
+													$endString1 = $endString + 12;
+												}
+
+												if($dayString != "TBA" && $startString != "TBA" && $endString != "TBA"){
+												   $day = strtok($dayString,"/");
+												   $timeLen = $endString1 - $startString1;
+												   $timeLen = abs($timeLen);
+												   while($day !== false){
+												   		// Insert slot with rowspan
+												   		$selector = "'table#tg".$i." tr td.".$day.'t'.$startString."'";
+												   		echo ("$($selector).attr('rowspan', $timeLen);");
+
+												   		// Insert course number and section to slot
+											       		if($timeLen==1) echo ("$($selector).text('$courseNumString $sectNumString');");	// Lecture
+											       		else echo ("$($selector).html('$courseNumString<br>$sectNumString');");			// Lab
+
+											       		// If course is held more than one day
+											       		for($j=1; $j < $timeLen; $j++){
+											       			$newT = $startString+$j;
+											       			$selector1 = "'table#tg".$i." tr td.".$day.'t'.$newT."'";
+											       			echo ("$($selector1).remove();");	// remove extra cells to give way to rowspan
+											       		}
+
+											       		$day = strtok("/");
+											       }
+												}
+
+									 		?>
+									 	});
+									<?php $sectionCounter++; ?>
+									@endwhile
+									</script>
                                 </div>
                             </div>
                         </div>

@@ -14,12 +14,14 @@ class CreateStudytimeslotsTable extends Migration {
 	{
 		Schema::create('study_time_slots', function(Blueprint $table)
 		{
-			$table->string('studyName')->unique();
+			$table->string('studyName');
+			$table->string('studySection');
 			$table->string('startTime');
 			$table->string('endTime');
 			$table->string('day');
 			$table->float('units');
 			$table->string('room');
+			$table->unique(array('studyName','studySection'));
 			$table->timestamps();
 		});
 	}

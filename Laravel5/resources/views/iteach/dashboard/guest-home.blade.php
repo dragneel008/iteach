@@ -1,4 +1,4 @@
-@extends('dash-guest')
+@extends('iteach/dashboard/gdash')
 
 @section('content')
     <div class="row">

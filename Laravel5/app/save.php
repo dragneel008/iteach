@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class save extends Model {
+class Save extends Model {
 
 	//
 

@@ -3,18 +3,20 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class SectionTableSeeder extends Seeder {
+	/*
+		This seeder is for temporary use. This data must come from the .csv file.
+	*/
 
-	/**
-	 * Run the database seeds.
-	 *
-	 * @return void
-	 */
+class SectionTableSeeder extends Seeder {
+	
 	public function run()
 	{
-		DB::table('sections')->delete();
+		DB::table('sections')->delete();				//delete whatever data is present before adding new ones
+		
 		DB::table('sections')->insert(array(
-			['type'=>'Lecture',
+			
+			['sid'=>'cmsc2e',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 2',
 			'sectionNum'=>'E',
 			'startTime'=>'1:00',
@@ -24,7 +26,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'97',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc2e1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 2',
 			'sectionNum'=>'E-1L',
 			'startTime'=>'10:00',
@@ -34,7 +38,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'14',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc2e2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 2',
 			'sectionNum'=>'E-2L',
 			'startTime'=>'4:00',
@@ -44,7 +50,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc2e3l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 2',
 			'sectionNum'=>'E-3L',
 			'startTime'=>'10:00',
@@ -54,7 +62,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc2e4l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 2',
 			'sectionNum'=>'E-4L',
 			'startTime'=>'10:00',
@@ -64,7 +74,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'23',
 			'teachingUnits'=>1.5],
-			['type'=>'Lecture',
+			
+			['sid'=>'cmsc11t',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'T',
 			'startTime'=>'9:00',
@@ -74,7 +86,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'92',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc11t1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'T-1L',
 			'startTime'=>'10:00',
@@ -84,7 +98,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'16',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc11t2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'T-2L',
 			'startTime'=>'4:00',
@@ -94,7 +110,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
-			['type'=>'Lecture',
+			
+			['sid'=>'cmsc11u',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'U',
 			'startTime'=>'10:00',
@@ -104,7 +122,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'107',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc11u1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'U-1L',
 			'startTime'=>'1:00',
@@ -114,7 +134,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'20',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc11u2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 11',
 			'sectionNum'=>'U-2L',
 			'startTime'=>'10:00',
@@ -125,7 +147,8 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
 
-			['type'=>'Lecture',
+			['sid'=>'cmsc21st',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 21',
 			'sectionNum'=>'ST',
 			'startTime'=>'8:00',
@@ -135,7 +158,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'111',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc21st1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 21',
 			'sectionNum'=>'ST-1L',
 			'startTime'=>'1:00',
@@ -145,7 +170,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'16',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc21st2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 21',
 			'sectionNum'=>'ST-2L',
 			'startTime'=>'1:00',
@@ -156,7 +183,8 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
 			
-			['type'=>'Lecture',
+			['sid'=>'cmsc141d',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 141',
 			'sectionNum'=>'D',
 			'startTime'=>'12:00',
@@ -166,7 +194,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'141',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc141d1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 141',
 			'sectionNum'=>'D-1L',
 			'startTime'=>'1:00',
@@ -176,7 +206,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'20',
 			'teachingUnits'=>1.5],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc141d2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 141',
 			'sectionNum'=>'D-2L',
 			'startTime'=>'1:00',
@@ -187,7 +219,8 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'22',
 			'teachingUnits'=>1.5],
 
-			['type'=>'Sect',
+			['sid'=>'cmsc200ar1',
+			'type'=>'Sect',
 			'courseNum'=>'CMSC 200',
 			'sectionNum'=>'AR1',
 			'startTime'=>'TBA',
@@ -197,7 +230,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'1',
 			'teachingUnits'=>0.0],
-			['type'=>'Sect',
+			
+			['sid'=>'cmsc200ar2',
+			'type'=>'Sect',
 			'courseNum'=>'CMSC 200',
 			'sectionNum'=>'AR2',
 			'startTime'=>'TBA',
@@ -208,7 +243,8 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'20',
 			'teachingUnits'=>0.0],
 
-			['type'=>'Sect',
+			['sid'=>'cmsc215y',
+			'type'=>'Sect',
 			'courseNum'=>'CMSC 215',
 			'sectionNum'=>'Y',
 			'startTime'=>'4:00',
@@ -218,7 +254,9 @@ class SectionTableSeeder extends Seeder {
 			'employeeId'=>'111',
 			'classSize'=>'19',
 			'teachingUnits'=>4.5],
-			['type'=>'Sect',
+			
+			['sid'=>'cmsc227wx',
+			'type'=>'Sect',
 			'courseNum'=>'CMSC 227',
 			'sectionNum'=>'WX',
 			'startTime'=>'1:00',
@@ -229,17 +267,20 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'13',
 			'teachingUnits'=>4.5],
 
-			/*['type'=>'Lecture',
+			['sid'=>'cmsc210ef',
+			'type'=>'Lecture',
 			'courseNum'=>'CMSC 210',
 			'sectionNum'=>'EF',
 			'startTime'=>'2:00',
 			'endTime'=>'4:00',
-			'day'=>'M',
+			'day'=>'M/F',
 			'roomNum'=>'ICS GS Room',
 			'employeeId'=>'111',
 			'classSize'=>'13',
 			'teachingUnits'=>3.0],
-			['type'=>'Lab',
+			
+			['sid'=>'cmsc210ef1l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 210',
 			'sectionNum'=>'EF-1L',
 			'startTime'=>'4:00',
@@ -248,21 +289,12 @@ class SectionTableSeeder extends Seeder {
 			'roomNum'=>'PC LAB 6',
 			'employeeId'=>'111',
 			'classSize'=>'13',
-			'teachingUnits'=>2.25],*/
-		
-			['type'=>'Lecture',
+			'teachingUnits'=>2.25],
+	
+			['sid'=>'cmsc210ef2l',
+			'type'=>'Lab',
 			'courseNum'=>'CMSC 210',
-			'sectionNum'=>'EF',
-			'startTime'=>'2:00',
-			'endTime'=>'4:00',
-			'day'=>'F',
-			'roomNum'=>'ICS GS Room',
-			'employeeId'=>'111',
-			'classSize'=>'13',
-			'teachingUnits'=>3.0],
-			['type'=>'Lab',
-			'courseNum'=>'CMSC 210',
-			'sectionNum'=>'EF-1L',
+			'sectionNum'=>'EF-2L',
 			'startTime'=>'4:00',
 			'endTime'=>'7:00',
 			'day'=>'F',
@@ -271,7 +303,8 @@ class SectionTableSeeder extends Seeder {
 			'classSize'=>'13',
 			'teachingUnits'=>2.25],
 
-			['type'=>'Sect',
+			['sid'=>'cmsc400ar1',
+			'type'=>'Sect',
 			'courseNum'=>'CMSC 400',
 			'sectionNum'=>'AR1',
 			'startTime'=>'TBA',
@@ -280,7 +313,7 @@ class SectionTableSeeder extends Seeder {
 			'roomNum'=>'TBA',
 			'employeeId'=>'111',
 			'classSize'=>'3',
-			'teachingUnits'=>0.0]
+			'teachingUnits'=>0.0],
 
 		));
 	}

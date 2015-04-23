@@ -14,7 +14,7 @@ class CreateStudiesTable extends Migration {
 	{
 		Schema::create('studies', function(Blueprint $table)
 		{
-			$table->string('employeeNum')->unique();
+			$table->string('employeeId')->unique();
 			$table->string('studyName');
 			$table->rememberToken();
 			$table->timestamps();

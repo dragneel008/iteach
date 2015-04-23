@@ -13,11 +13,11 @@
 				    <?php $image = "profile/".$allInstructors[$i]->employeeId.".jpg"?>	<!-- Get the directory of Image -->
 				    <?php $haveSched=false; ?>
 				    <li id= "teach">
-					    <a data-toggle="modal" data-target="#openModal{{$i}}"><img src="{{$image}}" onerror="this.src='profile/100.jpg'"> 
+					    <a data-toggle="modal" data-target="#openModal{{$i}}"><img src="{{$image}}" onerror="this.src='profile/100.jpg'"> </a>
 						    <div id="label">
 							    {{$allInstructors[$i]->fname}} {{$allInstructors[$i]->lname}}<br>
 						    </div>
-						 </a>
+						    
 					    <div id="openModal{{$i}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="purchaseLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<a href="#close" title="Close" class="close">X</a>

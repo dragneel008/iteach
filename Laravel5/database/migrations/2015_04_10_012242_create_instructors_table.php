@@ -19,7 +19,7 @@ class CreateInstructorsTable extends Migration {
 			$table->string('lname');
 			$table->string('employeeId')->unique();
 			$table->string('status');
-			$table->boolean('registered');
+			$table->boolean('registered')->default(false);
 			$table->timestamps();
 		});
 	}

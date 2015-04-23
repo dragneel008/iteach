@@ -33,7 +33,6 @@
                                             <th>Day</th>
                                             <th>Room</th>
                                             <th>Instructor</th>
-                                            <th>Class Size</th>
                                         </tr>
                                     </thead>
                                         <?php $cn = $sections[$i]->courseNum; ?>
@@ -48,7 +47,7 @@
                                                 <td>{{$sections[$i]->day}}</td>
                                                 <td>{{$sections[$i]->roomNum}}</td>
                                                 <td>{{$sections[$i]->lname}}</td>
-                                                <td>{{$sections[$i]->classSize}}</td>                                    
+                                                <td>{{$sections[$i]->class_size}}</td>                                    
                                                 </tr>
                                             <?php $i++; ?>
                                         @endwhile
