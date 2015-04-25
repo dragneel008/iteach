@@ -10,7 +10,10 @@
                 </div>
                 <div class="bs-example col-lg-11">
                     <div class="panel-group" id="accordion">
-                    <?php $sectionCounter = 0; ?>
+                    <?php 
+                    	$sectionCounter = 0;
+                    	$colorSlots = array('red','blue','yellow','green');	// Sample colors, please change depending on color scheme
+                    ?>
                     @for ($i = 0;$i<count($rooms)-1; $i++)
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -87,10 +90,10 @@
 												$endString = str_replace(":00","",$sections[$sectionCounter]->endTime);
 
 												// Convert to military time
-												if($startString < 7 && $startString > 0){
+												if($startString >= 1 && $startString <= 6){
 													$startString1 = $startString + 12;
 												}
-												if($endString < 8 && $endString > 0){
+												if($endString >= 2 && $endString <= 7 ){
 													$endString1 = $endString + 12;
 												}
 
@@ -101,10 +104,11 @@
 												   while($day !== false){
 												   		// Insert slot with rowspan
 												   		$selector = "'table#tg".$i." tr td.".$day.'t'.$startString."'";
-												   		echo ("$($selector).attr('rowspan', $timeLen);");
+												   		$colorIndex = ($sectionCounter+1) % count($colorSlots);
+												   		echo ("$($selector).attr('rowspan', $timeLen); $($selector).css('background-color', '$colorSlots[$colorIndex]');");
 
 												   		// Insert course number and section to slot
-											       		if($timeLen==1) echo ("$($selector).text('$courseNumString $sectNumString');");	// Lecture
+											       		if($timeLen<=1) echo ("$($selector).text('$courseNumString $sectNumString');");	// Lecture
 											       		else echo ("$($selector).html('$courseNumString<br>$sectNumString');");			// Lab
 
 											       		// If course is held more than one day
